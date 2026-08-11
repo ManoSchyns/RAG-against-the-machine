@@ -1,29 +1,10 @@
-"""
-Startégie python.
-
-Comment faire ??
-
-On nous donne un chunck max size
-
-La stratégie serait ->
-
-Faire en fonction de la taille. Si la taille est grande -> Sépration par classe
-
-Si moins grande séparation par fonctions
-
-Si moins grande séparation par bloc.
-
-Dès qu'on a un bloc valide on le garde et on diminue les blocs plus grands
-
-Et on réduit encore et encore en bloc plus petit jusqu'a avoir que des
-éléments de la taille souhaitée
-"""
 from src.model import MinimalSource
 from .python_chunk import python_spliter
 from .text_chunk import text_spliter
 from .markdown_chunk import mk_spliter
+from typing import Callable
 
-SPLITERS: list[callable] = [
+SPLITERS: list[Callable] = [
     python_spliter,
     text_spliter,
     mk_spliter
@@ -55,6 +36,7 @@ def strat(
     except (FileNotFoundError, PermissionError):
         print(f"== :( == Error ===> Can't use file: {filename}")
         return []
+
 
 def chuncker(
     filename: str,
@@ -93,7 +75,9 @@ def chuncker(
             None. Valid chunks are added to the sources list.
         """
 
-        # Le chunk est suffisamment petit
+        if len(curr_data) == 0:
+            return
+
         if len(curr_data) <= chunk_max_size:
             sources.append(
                 MinimalSource(
@@ -111,7 +95,7 @@ def chuncker(
         for block in splitted_data:
 
             recursive_chucker(
-                indent + 4,
+                indent + 1,
                 block,
                 start_index + local_index
             )

@@ -31,12 +31,10 @@ def chunk_index(chunk_max_size: int) -> list[MinimalSource]:
             retrieved_sources.extend(strat(chunk_max_size, str(file), 0))
 
         elif file.suffix == ".txt":
-            pass
-            #retrieved_sources.extend(start(chunk_max_size, str(file), 1))
+            retrieved_sources.extend(strat(chunk_max_size, str(file), 1))
 
-        elif file.suffix == ".txt":
-            pass
-            #retrieved_sources.extend(start(chunk_max_size, str(file), 2))
+        elif file.suffix == ".md":
+            retrieved_sources.extend(strat(chunk_max_size, str(file), 2))
 
     export_sources(retrieved_sources)
     return retrieved_sources
@@ -52,7 +50,7 @@ def export_sources(retrieved_sources: list[MinimalSource]) -> None:
     try:
         with open(destination, "w") as file:
             json.dump(
-                [source.to_json() for source in retrieved_sources],
+                [json.loads(source.to_json()) for source in retrieved_sources],
                 file, indent=4)
     except (FileNotFoundError, PermissionError) as e:
         print(f"Can't export index chunks: {e}")
