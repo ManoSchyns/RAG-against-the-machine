@@ -2,7 +2,7 @@ from pathlib import Path
 import sys
 import json
 from src.model import MinimalSource
-from .strategies import python_strat
+from .strategies import strat
 
 
 origin = Path("data/raw")
@@ -28,10 +28,16 @@ def chunk_index(chunk_max_size: int) -> list[MinimalSource]:
             continue
 
         if file.suffix == ".py":
-            retrieved_sources.extend(python_strat(chunk_max_size, str(file)))
+            retrieved_sources.extend(strat(chunk_max_size, str(file), 0))
 
-        elif file.suffix in (".txt", ".md"):
+        elif file.suffix == ".txt":
             pass
+            #retrieved_sources.extend(start(chunk_max_size, str(file), 1))
+
+        elif file.suffix == ".txt":
+            pass
+            #retrieved_sources.extend(start(chunk_max_size, str(file), 2))
+
     export_sources(retrieved_sources)
     return retrieved_sources
 

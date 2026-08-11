@@ -1,8 +1,8 @@
 import re
 
-def text_spliter(indentation: int, data: str) -> list[str]:
+def mk_spliter(indentation: int, data: str) -> list[str]:
     """
-    Method for splitting part of the text file
+    Method for splitting part of the markdown file
     
     Args:
         indentation (int): the current indentation

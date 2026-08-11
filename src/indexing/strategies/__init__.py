@@ -1,3 +1,3 @@
-from .python_chunk import python_strat
+from .strat import strat
 
-__all__ = ["python_strat"]
+__all__ = ["strat"]
