@@ -1,4 +1,7 @@
-from .indexing import chunk_index
+from .indexing import index
+import fire
 
-
-chunk_index(2000)
+if __name__ == "__main__":
+    fire.Fire({
+        "index": index
+    })

@@ -3,13 +3,18 @@ NAME = call_me_maybe
 PYTHON = uv run python
 MAIN = -m src
 
-all: install run
+INDEX = index --max_chunk_size 2000
+
+all: install
 
 install:
 	uv sync
 
 run:
 	$(PYTHON) $(MAIN)
+
+index:
+	$(PYTHON) $(MAIN) $(INDEX)
 
 debug:
 	$(PYTHON) -m pdb $(MAIN)
@@ -32,4 +37,4 @@ lint-strict:
 	uv run flake8 .
 	uv run mypy . --strict
 
-.PHONY: all install run debug clean lint lint-strict
+.PHONY: all install run debug clean lint lint-strict index

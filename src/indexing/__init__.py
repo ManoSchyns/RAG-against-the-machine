@@ -1,3 +1,3 @@
-from .index import chunk_index
+from .index import index
 
-__all__ = ["chunk_index"]
+__all__ = ["index"]

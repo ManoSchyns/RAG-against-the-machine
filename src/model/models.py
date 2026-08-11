@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
 import uuid
 from typing import List
-import json
 
 
 class MinimalSource(BaseModel):
@@ -10,14 +9,6 @@ class MinimalSource(BaseModel):
     file_path: str
     first_character_index: int
     last_character_index: int
-
-    def to_json(self) -> str:
-        """Return the source as a JSON-formatted string."""
-        return json.dumps({
-            "file_path": self.file_path,
-            "first_character_index": self.first_character_index,
-            "last_character_index": self.last_character_index
-        })
 
 
 class UnansweredQuestion(BaseModel):
