@@ -26,6 +26,16 @@ def python_strat(
     chunk_max_size: int,
     filename: str
 ) -> list[MinimalSource]:
+    """
+    Python strategy for indexing the file
+
+    Args:
+        chunk_max_size (int): the maximum size of a chunk
+        filename (str): the file to index
+
+    Returns:
+        retrieved_sources (list[MinimalSource]): The data from the indexed file
+    """
     try:
         with open(filename, "r") as file:
             data = file.read()
@@ -38,6 +48,16 @@ def python_strat(
 
 
 def spliter(indentation: int, data: str) -> list[str]:
+    """
+    Method for splitting part of the file
+
+    Args:
+        indentation (int): the current indentation
+        data (str): the part of the file to process
+
+    Returns:
+        list[str]: the split file content
+    """
     size = len(data)
 
     pattern = rf'(?=^{" " * indentation}(?:class|def)\s+)'
@@ -74,6 +94,17 @@ def chuncker(
     chunk_max_size: int,
     data: str
 ) -> list[MinimalSource]:
+    """
+    Function that indexes the file
+
+    Args:
+        filename (str): file name
+        chunk_max_size (int): maximum chunk size
+        data: file content
+
+    Returns:
+        retrieved_sources (list[MinimalSource]): The data from the indexed file
+    """
 
     sources: list[MinimalSource] = []
 
@@ -82,6 +113,16 @@ def chuncker(
         curr_data: str,
         start_index: int
     ) -> None:
+        """Recursively split data into chunks within the maximum size.
+
+        Args:
+            indent: Current indentation level used for structural splitting.
+            curr_data: Current portion of the file being processed.
+            start_index: Character index of curr_data in the original file.
+
+        Returns:
+            None. Valid chunks are added to the sources list.
+        """
 
         # Le chunk est suffisamment petit
         if len(curr_data) <= chunk_max_size:

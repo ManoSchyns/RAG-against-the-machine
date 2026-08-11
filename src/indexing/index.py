@@ -1,12 +1,3 @@
-"""
-1) Parcourir les fichiers dasn data / raw
-
-2 ) utiliser la stratégie py / md en fonction du
-nom du fichier. ignorer les autres
-Les seuls extentions acceptées .py, .md et .txt
-
-3) Export retrieved_sources
-"""
 from pathlib import Path
 import sys
 import json
@@ -19,6 +10,16 @@ destination = "data/processed/datas.json"
 
 
 def chunk_index(chunk_max_size: int) -> list[MinimalSource]:
+    """
+    Iterate through the files and choose the best strategy
+    for indexing the files.
+
+    Args:
+        chunk_max_size (int): The maximum size of each chunk.
+
+    Returns:
+        list[MinimalSource]: A list of chunks.
+    """
     retrieved_sources: list[MinimalSource] = []
 
     for file in origin.rglob("*"):
@@ -36,6 +37,12 @@ def chunk_index(chunk_max_size: int) -> list[MinimalSource]:
 
 
 def export_sources(retrieved_sources: list[MinimalSource]) -> None:
+    """
+    Exports the resources to a file in JSON format
+
+    Args:
+        retrieved_sources (list[MinimalSource]): The data
+    """
     try:
         with open(destination, "w") as file:
             json.dump(
