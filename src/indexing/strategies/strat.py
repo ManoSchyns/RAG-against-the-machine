@@ -104,10 +104,8 @@ def chuncker(
             )
             return
 
-        # On découpe le bloc
         splitted_data = SPLITERS[index](indent, curr_data)
 
-        # Position du prochain bloc DANS curr_data
         local_index = 0
 
         for block in splitted_data:
