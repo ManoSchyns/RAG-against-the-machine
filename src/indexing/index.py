@@ -46,11 +46,8 @@ def index(max_chunk_size: int = 2000) -> None:
         if file.suffix == ".py":
             chunks.extend(strat(max_chunk_size, str(file), 0))
 
-        elif file.suffix == ".txt":
+        elif file.suffix == ".txt" or file.suffix == ".md":
             chunks.extend(strat(max_chunk_size, str(file), 1))
-
-        elif file.suffix == ".md":
-            chunks.extend(strat(max_chunk_size, str(file), 2))
 
     export_chunks(chunks)
     index_creator(chunks)
@@ -62,16 +59,20 @@ def index_creator(chunks: list[MinimalSource]) -> None:
     """
     Create the index for the chunks and save it to data/processed/index.
     """
-    contents = [
-        chunk.content
-        for chunk in chunks
-        ]
+    try:
+        contents = [
+            chunk.content
+            for chunk in chunks
+            ]
 
-    tokenized_chunks = bm25s.tokenize(contents)
+        tokenized_chunks = bm25s.tokenize(contents)
 
-    indexer = bm25s.BM25()
-    indexer.index(tokenized_chunks, show_progress=True)
-    indexer.save(INDEX_FOLDER, show_progress=True)
+        indexer = bm25s.BM25()
+        indexer.index(tokenized_chunks, show_progress=True)
+        indexer.save(INDEX_FOLDER, show_progress=True)
+    except (PermissionError) as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
 
 def export_chunks(chunks: list[MinimalSource]) -> None:

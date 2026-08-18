@@ -1,13 +1,11 @@
 from src.model import MinimalSource
 from .python_chunk import python_spliter
 from .text_chunk import text_spliter
-from .markdown_chunk import mk_spliter
 from typing import Callable
 
 SPLITERS: list[Callable] = [
     python_spliter,
-    text_spliter,
-    mk_spliter
+    text_spliter
 ]
 
 
