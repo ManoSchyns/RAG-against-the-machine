@@ -3,6 +3,12 @@ import sys
 
 
 def search(query: str, k: int) -> str:
+    """
+    Return the top-k sources for a single query
+
+    Returns:
+        str: the top-k sources for a single query 
+    """
     ret_val: str = ""
 
     chunks = get_chunks()

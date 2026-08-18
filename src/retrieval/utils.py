@@ -7,6 +7,12 @@ import json
 
 
 def get_chunks() -> list[MinimalSource]:
+    """
+    Retrieve the chunks created during indexing
+
+    Returns:
+        the list of chunks
+    """
     try:
         with open(CHUNK_DESTINATION, "r") as file:
             datas = json.load(file)
@@ -18,6 +24,12 @@ def get_chunks() -> list[MinimalSource]:
 
 
 def get_index() -> bm25s.BM25:
+    """
+    Retrieve the previously created index
+
+    Returns:
+        the BM25 index
+    """
     try:
         return bm25s.BM25.load(INDEX_FOLDER)
     except (FileNotFoundError, PermissionError):
@@ -27,6 +39,18 @@ def get_index() -> bm25s.BM25:
 
 def search_in(query: str, k: int, index: bm25s.BM25,
               chunks: list[MinimalSource]) -> list[MinimalSource]:
+    """
+    Finds the k most likely chunks for a query
+
+    Args:
+        query (str): the query
+        k (int): the number of chunks to return
+        index (BM25): the chunk index
+        chunks (list): the chunks
+
+    Returns:
+        The list of the most probable chunks
+    """
     if not query.strip():
         print("The query must contains caracters")
         return []

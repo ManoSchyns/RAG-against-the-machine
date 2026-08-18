@@ -7,6 +7,14 @@ import sys
 
 
 def search_dataset(dataset_path: str, k: int, save_directory: str) -> None:
+    """
+    Run search over a whole dataset and write a StudentSearchResults JSON file.
+
+    Args:
+        dataset_path (str): the path to the dataset
+        k (int): the number of sources for each query
+        save_directory (str): the path to the output directory
+    """
     index = get_index()
     chunks = get_chunks()
     questions: RagDataset = get_unanswered_question(dataset_path)
@@ -34,6 +42,13 @@ def search_dataset(dataset_path: str, k: int, save_directory: str) -> None:
 
 
 def export_result(save_file: str, result: StudentSearchResults) -> None:
+    """
+    Exports the result to the file
+
+    Args:
+        save_file (str): The file to export to
+        result (StudentSearchResults): The result
+    """
     try:
         with open(save_file, "w") as file:
             json.dump(result.model_dump(),
@@ -44,6 +59,15 @@ def export_result(save_file: str, result: StudentSearchResults) -> None:
 
 
 def get_unanswered_question(dataset_path: str) -> RagDataset:
+    """
+    Retrieve data from the file
+
+    Args:
+        dataset_path (str): the data file
+    
+    Returns:
+        Usable data
+    """
     try:
         with open(dataset_path, "r") as file:
             datas = json.load(file)
@@ -58,4 +82,13 @@ def get_unanswered_question(dataset_path: str) -> RagDataset:
 
 
 def get_file(save_directory: str) -> str:
+    """
+    Returns the filename without the path
+
+    Args:
+        save_directory (str): The full path to the file
+    
+    Returns:
+        (str): The name
+    """
     return Path(save_directory).name
