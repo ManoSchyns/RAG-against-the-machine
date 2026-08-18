@@ -5,16 +5,16 @@ import json
 from tqdm import tqdm
 from src.model import MinimalSource
 from .strategies import strat
+from src.config import (CHUNK_FOLDER,
+                        INDEX_DESTINATION,
+                        CHUNK_DESTINATION)
 
 
 origin = Path("data/raw")
 
-chunk_destination = "data/processed/chunks/datas.json"
-index_destination = "data/processed/index"
 
-chunk_folder = "data/processed/chunks"
-Path(chunk_folder).mkdir(exist_ok=True)
-Path(index_destination).mkdir(exist_ok=True)
+Path(CHUNK_FOLDER).mkdir(exist_ok=True)
+Path(INDEX_DESTINATION).mkdir(exist_ok=True)
 
 
 def index(max_chunk_size: int = 2000) -> None:
@@ -71,7 +71,7 @@ def index_creator(chunks: list[MinimalSource]) -> None:
 
     indexer = bm25s.BM25()
     indexer.index(tokenized_chunks, show_progress=True)
-    indexer.save(index_destination, show_progress=True)
+    indexer.save(INDEX_DESTINATION, show_progress=True)
 
 
 def export_chunks(chunks: list[MinimalSource]) -> None:
@@ -82,7 +82,7 @@ def export_chunks(chunks: list[MinimalSource]) -> None:
         chunks (list[MinimalSource]): The data
     """
     try:
-        with open(chunk_destination, "w") as file:
+        with open(CHUNK_DESTINATION, "w") as file:
             file.write("[\n")
 
             for i, source in enumerate(
