@@ -83,7 +83,8 @@ def chuncker(
                 MinimalSource(
                     file_path=filename,
                     first_character_index=start_index,
-                    last_character_index=start_index + len(curr_data) - 1
+                    last_character_index=start_index + len(curr_data) - 1,
+                    content=curr_data
                 )
             )
             return
