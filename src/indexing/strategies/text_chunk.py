@@ -1,6 +1,6 @@
 def text_spliter(indentation: int, data: str) -> list[str]:
     """
-    Method for splitting part of the text file
+    Method for splitting part of the text and .md file
 
     Args:
         indentation (int): the current indentation
