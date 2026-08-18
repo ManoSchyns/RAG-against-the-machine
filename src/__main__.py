@@ -7,4 +7,6 @@ if __name__ == "__main__":
         "index": index,
         "search": search,
         "search_dataset": search_dataset
-    })
+    },
+    name="rag"
+    )
