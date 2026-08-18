@@ -6,7 +6,7 @@ from tqdm import tqdm
 from src.model import MinimalSource
 from .strategies import strat
 from src.config import (CHUNK_FOLDER,
-                        INDEX_DESTINATION,
+                        INDEX_FOLDER,
                         CHUNK_DESTINATION)
 
 
@@ -14,7 +14,7 @@ origin = Path("data/raw")
 
 
 Path(CHUNK_FOLDER).mkdir(exist_ok=True)
-Path(INDEX_DESTINATION).mkdir(exist_ok=True)
+Path(INDEX_FOLDER).mkdir(exist_ok=True)
 
 
 def index(max_chunk_size: int = 2000) -> None:
@@ -71,7 +71,7 @@ def index_creator(chunks: list[MinimalSource]) -> None:
 
     indexer = bm25s.BM25()
     indexer.index(tokenized_chunks, show_progress=True)
-    indexer.save(INDEX_DESTINATION, show_progress=True)
+    indexer.save(INDEX_FOLDER, show_progress=True)
 
 
 def export_chunks(chunks: list[MinimalSource]) -> None:
