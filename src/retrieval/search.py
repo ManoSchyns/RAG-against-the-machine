@@ -14,7 +14,8 @@ def search(query: str, k: int) -> str:
         sys.exit(1)
 
     for i, data in enumerate(datas):
-        ret_val += f"{data.file_path} [{data.first_character_index}:{data.last_character_index}]"
+        ret_val += f"{data.file_path} "
+        f"[{data.first_character_index}:{data.last_character_index}]"
         if i < len(datas) - 1:
             ret_val += "\n"
     return ret_val
