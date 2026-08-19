@@ -10,5 +10,7 @@ dependencies = [
     "flake8>=7.3.0",
     "mypy>=2.3.0",
     "pydantic>=2.13.4",
+    "torch>=2.13.0",
     "tqdm>=4.70.0",
+    "transformers>=5.15.0",
 ]

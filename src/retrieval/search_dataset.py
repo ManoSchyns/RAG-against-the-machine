@@ -64,7 +64,7 @@ def get_unanswered_question(dataset_path: str) -> RagDataset:
 
     Args:
         dataset_path (str): the data file
-    
+
     Returns:
         Usable data
     """
@@ -81,14 +81,14 @@ def get_unanswered_question(dataset_path: str) -> RagDataset:
     sys.exit(1)
 
 
-def get_file(save_directory: str) -> str:
+def get_file(path_file: str) -> str:
     """
     Returns the filename without the path
 
     Args:
-        save_directory (str): The full path to the file
-    
+        path_file (str): The full path to the file
+
     Returns:
         (str): The name
     """
-    return Path(save_directory).name
+    return Path(path_file).name

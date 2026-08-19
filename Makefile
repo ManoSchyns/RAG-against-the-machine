@@ -5,7 +5,9 @@ MAIN = -m src
 
 INDEX = index --max_chunk_size 2000
 SEARCH = search "How to configure the OpenAI server?" --k 10
-SEARCH_DATASET = search_dataset --dataset_path data/datasets/UnansweredQuestions/dataset_code_public.json --k 10 --save_directory data/output/search_results
+SEARCH_DATASET = search_dataset --dataset_path data/datasets/UnansweredQuestions/dataset_docs_public.json --k 5 --save_directory data/output/search_results/UnansweredQuestions
+ANSWER = answer "What activation formats does the fused batched MoE layer return in vLLM?" 5
+ANSWER_DATASET = answer_dataset --student_search_results_path data/output/search_results/UnansweredQuestions/dataset_docs_public.json --save_directory data/output/search_results_and_answer/UnansweredQuestions
 
 all: install
 
@@ -24,6 +26,12 @@ search:
 search_dataset:
 	$(PYTHON) $(MAIN) $(SEARCH_DATASET)
 
+answer:
+	$(PYTHON) $(MAIN) $(ANSWER)
+
+answer_dataset:
+	$(PYTHON) $(MAIN) $(ANSWER_DATASET)
+
 debug:
 	$(PYTHON) -m pdb $(MAIN)
 
@@ -32,7 +40,8 @@ clean:
 	find . -type d -name ".venv" -exec rm -rf {} +
 	find . -type d -name ".mypy_cache" -exec rm -rf {} +
 	rm -rf data/processed/*
-	rm -rf data/output/search_results/*
+	rm -rf data/output/search_results/UnansweredQuestions*
+	rm -rf data/output/search_results_and_answer/UnansweredQuestions*
 
 lint:
 	uv run flake8 .
