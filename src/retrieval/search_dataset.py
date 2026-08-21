@@ -54,8 +54,10 @@ def export_result(save_file: str, result: StudentSearchResults) -> None:
             json.dump(result.model_dump(),
                       file, indent=4)
         print(f"Saved student_search_results to {save_file}")
+        return
     except (FileNotFoundError, PermissionError):
         print("Unable to open the save directory")
+    sys.exit(1)
 
 
 def get_unanswered_question(dataset_path: str) -> RagDataset:

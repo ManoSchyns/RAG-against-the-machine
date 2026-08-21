@@ -9,12 +9,14 @@ from src.config import (CHUNK_FOLDER,
                         INDEX_FOLDER,
                         CHUNK_DESTINATION)
 
+try:
+    origin = Path("data/raw")
 
-origin = Path("data/raw")
-
-
-Path(CHUNK_FOLDER).mkdir(exist_ok=True)
-Path(INDEX_FOLDER).mkdir(exist_ok=True)
+    Path(CHUNK_FOLDER).mkdir(exist_ok=True)
+    Path(INDEX_FOLDER).mkdir(exist_ok=True)
+except Exception:
+    print("Please set up the folders and files.")
+    sys.exit(1)
 
 
 def index(max_chunk_size: int = 2000) -> None:
@@ -37,6 +39,9 @@ def index(max_chunk_size: int = 2000) -> None:
         file for file in origin.rglob("*")
         if file.is_file()
     ]
+    if len(files) == 0:
+        print("No files in the raw data. Impossible to work.")
+        sys.exit(1)
 
     for file in tqdm(files, desc="Chunking", ncols=100, unit=" file"):
 

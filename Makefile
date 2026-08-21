@@ -14,6 +14,14 @@ all: install
 
 install:
 	uv sync
+	mkdir -p data/raw
+	mkdir -p data/processed
+	mkdir -p data/datasets/UnansweredQuestions
+	mkdir -p data/datasets/AnsweredQuestions
+	mkdir -p data/output/search_results/UnansweredQuestions
+	mkdir -p data/output/search_results/AnsweredQuestions
+	mkdir -p data/output/search_results_and_answer/UnansweredQuestions
+	mkdir -p data/output/search_results_and_answer/AnsweredQuestions
 
 run:
 	$(PYTHON) $(MAIN)
@@ -47,6 +55,9 @@ clean:
 	rm -rf data/output/search_results/UnansweredQuestions/*
 	rm -rf data/output/search_results_and_answer/UnansweredQuestions/*
 
+fclean: clean
+	rm -rf data
+
 lint:
 	uv run flake8 .
 	uv run mypy . \
@@ -60,4 +71,4 @@ lint-strict:
 	uv run flake8 .
 	uv run mypy . --strict
 
-.PHONY: all install run debug clean lint lint-strict index
+.PHONY: all install run debug clean fclean lint lint-strict index search search_dataset answer evaluate answer_dataset
