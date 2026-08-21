@@ -1,6 +1,6 @@
 .venv
 .mypy_cache
 __pycache__
-data/processed
-data/raw
-data/datasets
+data/processed/*
+data/raw/*
+data/datasets/*
